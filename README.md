@@ -15,28 +15,37 @@ The goal is to predict house sale prices based on various features including lot
 
 ## Project Structure
 
-```
+``` text
 Houses/
 ├── README.md
-├── train.csv                 # Training dataset
-├── test.csv                  # Test dataset  
-├── submission.csv            # Final predictions
-└── house_prices_analysis.py  # Main analysis script
+├── Houses.ipynb                                    # Jupyter notebook analysis
+├── submission.csv                                  # Final predictions
+├── anaconda_projects/                              # Anaconda project files
+│   └── db/
+│       └── project_filebrowser.db                 # Project database
+└── house-prices-advanced-regression-techniques/   # Kaggle dataset
+    ├── data_description.txt                        # Feature descriptions
+    ├── sample_submission.csv                       # Submission format example
+    ├── test.csv                                   # Test dataset
+    └── train.csv                                  # Training dataset
 ```
 
 ## Installation & Setup
 
 ### Prerequisites
+
 ```bash
 pip install pandas numpy matplotlib seaborn scipy scikit-learn xgboost
 ```
 
 ### Kaggle API Authentication
-1. Download your `kaggle.json` from https://www.kaggle.com/account
+
+1. Download your `kaggle.json` from <https://www.kaggle.com/account>
 2. Place it in `~/.kaggle/kaggle.json`
 3. Set permissions: `chmod 600 ~/.kaggle/kaggle.json`
 
 ### Download Dataset
+
 ```bash
 kaggle competitions download -c house-prices-advanced-regression-techniques
 unzip house-prices-advanced-regression-techniques.zip
@@ -45,6 +54,7 @@ unzip house-prices-advanced-regression-techniques.zip
 ## Analysis Pipeline
 
 ### 1. Data Exploration & Visualization
+
 - **Target Analysis**: Distribution analysis with log transformation
 - **Correlation Matrix**: Identify highly correlated numerical features
 - **Missing Data**: Comprehensive missing value analysis and visualization
@@ -52,13 +62,15 @@ unzip house-prices-advanced-regression-techniques.zip
 
 ### 2. Data Preprocessing
 
-#### Missing Value Handling Strategy:
+#### Missing Value Handling Strategy
+
 - **None Strategy**: Categorical features where missing = "None" (e.g., PoolQC, Fence)
 - **Zero Strategy**: Numerical features where missing = 0 (e.g., GarageArea, BsmtFinSF1)
 - **Mode Strategy**: Categorical features filled with most frequent value
 - **Neighborhood-based**: LotFrontage filled using neighborhood median
 
-#### Feature Engineering:
+#### Feature Engineering
+
 - **Log Transformation**: Applied to target variable (SalePrice) for normality
 - **Box-Cox Transformation**: Applied to skewed features (skewness > 0.75)
 - **New Features Created**:
@@ -69,7 +81,8 @@ unzip house-prices-advanced-regression-techniques.zip
 
 ### 3. Model Implementation
 
-#### Models Tested:
+#### Models Tested
+
 1. **Linear Regression**: Baseline model
 2. **Ridge Regression**: L2 regularization (α=10)
 3. **Lasso Regression**: L1 regularization (α=0.001)
@@ -77,7 +90,8 @@ unzip house-prices-advanced-regression-techniques.zip
 5. **XGBoost**: Gradient boosting (1000 estimators, lr=0.05)
 6. **Neural Network**: Multi-layer perceptron (100, 50 hidden units)
 
-#### Evaluation Metrics:
+#### Evaluation Metrics
+
 - Training RMSE
 - Validation RMSE (20% holdout)
 - 5-Fold Cross-Validation RMSE
@@ -85,6 +99,7 @@ unzip house-prices-advanced-regression-techniques.zip
 ### 4. Hyperparameter Tuning
 
 **XGBoost Grid Search Parameters:**
+
 - `n_estimators`: [500, 1000, 1500]
 - `learning_rate`: [0.01, 0.05, 0.1]
 - `max_depth`: [3, 4, 5]
@@ -94,18 +109,21 @@ unzip house-prices-advanced-regression-techniques.zip
 ## Key Features
 
 ### Data Quality
+
 - ✅ Zero missing values after preprocessing
 - ✅ Normalized target variable distribution
 - ✅ Handled feature skewness with Box-Cox transformation
 - ✅ One-hot encoded categorical variables
 
 ### Model Performance
+
 - 📊 Comprehensive model comparison
 - 🎯 Cross-validation for robust evaluation
 - 🔧 Hyperparameter optimization
 - 📈 Feature importance analysis
 
 ### Visualizations
+
 - Distribution plots with statistical fitting
 - Correlation heatmaps
 - Missing data analysis charts
@@ -114,12 +132,14 @@ unzip house-prices-advanced-regression-techniques.zip
 
 ## Usage
 
-1. **Run the complete analysis:**
-```python
-python house_prices_analysis.py
-```
+1 **Run the complete analysis:**
 
-2. **Key outputs:**
+ ```python
+ python house_prices_analysis.py
+ ```
+
+2 **Key outputs:**
+
 - Model performance comparison
 - Optimized hyperparameters
 - `submission.csv` for Kaggle submission
@@ -128,6 +148,7 @@ python house_prices_analysis.py
 ## Results
 
 The pipeline automatically:
+
 - Compares 6 different models
 - Identifies the best performing model
 - Generates optimized predictions
@@ -136,7 +157,8 @@ The pipeline automatically:
 
 ## Model Insights
 
-### Most Important Features (typical):
+### Most Important Features (typical)
+
 - OverallQual: Overall material and finish quality
 - GrLivArea: Above ground living area
 - TotalSF: Total square footage (engineered feature)
@@ -144,6 +166,7 @@ The pipeline automatically:
 - ExterQual: Exterior material quality
 
 ### Engineering Impact
+
 Custom features like `TotalSF` and `TotalBath` often rank among top predictors, demonstrating the value of domain knowledge in feature engineering.
 
 ## Next Steps
